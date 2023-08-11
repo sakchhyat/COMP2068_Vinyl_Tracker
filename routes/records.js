@@ -18,6 +18,7 @@ router.get('/', function(req, res, next) {
       console.log(err);
     }
     else {
+     
         res.render('records/index', { title: 'Record Collection', dataset: records, user: req.user });
     }
   })
@@ -49,36 +50,32 @@ router.post('/add', isLoggedIn ,(req, res, next) => {
   });
 });
 
-router.get('/delete/:_id', isLoggedIn, (req, res, next) => {
-  Record.remove({ _id: req.params._id }, (err) => {
-    if (err) {
-        console.log(err);
+
+router.get('/delete/:id',isLoggedIn, async (req, res) => {
+  try {
+    const deletedRecord = await Record.findByIdAndRemove(req.params.id);
+    if (!deletedRecord) {
+      return res.status(404).send('Record not found');
     }
-    else {
-        res.redirect('/records')
-    }
-  })
+    res.redirect('/records'); 
+  } catch (error) {
+    res.status(500).send('Error deleting record');
+  }
 });
 
 
-router.get('/edit/:_id', isLoggedIn, (req, res, next) => {
-  Record.findById(req.params._id, (err, project) => {
-    if (err) {
-        console.log(err);
-    }
-    else {
-      res.render('records/edit', {
-        title: 'Edit a Record\'s metadata',
-        albumTitle: albumTitle,         
-        user: req.user
-      })
-    }
 
-  })
-});
+  router.get('/edit/:id', isLoggedIn, async (req, res) => {
+    try {
+      const record = await Record.findById(req.params.id);
+      res.render('records/edit', { title: 'Edit Record', record }); // Pass the record object
+    } catch (error) {
+      res.status(500).send('Error fetching record');
+    }
+  });
 
 router.post('/edit/:_id', isLoggedIn, (req,res,next) => {
-  Project.findOneAndUpdate({_id: req.params._id}, {
+  Record.findOneAndUpdate({_id: req.params._id}, {
       albumTitle: req.body.albumTitle,
       albumArtist: req.body.albumArtist,
       releaseYear: req.body.releaseYear,

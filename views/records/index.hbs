@@ -16,6 +16,7 @@
     <th>Album Artist</th>
     <th>Release Year</th>
     <th>No. of Songs</th>
+    
   </thead>
   <tbody>
   {{#each dataset}}
@@ -24,6 +25,12 @@
       <td>{{this.albumArtist}}</td>
       <td>{{this.releaseYear}}</td>
       <td>{{this.noOfSongs}}</td>
+      {{#if ../user}}
+        <td><a href="/records/edit/{{this._id}}" 
+          class="btn btn-primary">Edit</a>
+            <a href="/records/delete/{{this._id}}" 
+          class="btn btn-danger">Delete</a></td>
+    {{/if}}
     </tr>
   {{/each}}
   </tbody>

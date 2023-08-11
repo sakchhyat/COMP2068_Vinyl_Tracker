@@ -15,7 +15,7 @@ const recordsCollectionSchemaDefn = {
     },
     noOfSongs: {
         type: Number
-    }    
+    },
 }
 
 
