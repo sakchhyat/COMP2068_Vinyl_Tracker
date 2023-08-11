@@ -11,7 +11,8 @@ var recordsRouter = require('./routes/records');
 var registerRouter = require('./routes/register');
 var loginRouter = require('./routes/login');
 
-
+const passport = require('passport');
+const session = require('express-session');
 
 var app = express();
 
@@ -24,6 +25,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(session({
+  secret: 'vinyltrackergrailzrock',
+  resave: false,
+  saveUninitialized: false
+}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const User = require('./models/user');
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/', indexRouter);
 app.use('/records', recordsRouter);

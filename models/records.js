@@ -19,5 +19,6 @@ const recordsCollectionSchemaDefn = {
 }
 
 
-var recordsSchema = new mongoose.Schema(recordsCollectionSchemaDefn)
-module.exports = mongoose.model('Record', recordsSchema);
+const Record = mongoose.models.Record || mongoose.model('Record', recordsCollectionSchemaDefn);
+
+module.exports = Record;
