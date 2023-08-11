@@ -1,0 +1,32 @@
+<h1>
+  Edit Record
+</h1>
+<form method="POST">
+  <fieldset>
+    <label for="albumTitle" class="col-2">
+      Album Title:
+    </label>
+    <input name="albumTitle" id="albumTitle" required value="{{record.albumTitle}}" />
+  </fieldset>
+  <fieldset>
+    <label for="albumArtist" class="col-2">
+      Album Artist:
+    </label>
+    <input name="albumArtist" id="albumArtist" required value="{{record.albumArtist}}" />
+  </fieldset>
+  <fieldset>
+    <label for="releaseYear" class="col-2">
+      Release Year:
+    </label>
+    <input name="releaseYear" id="releaseYear" required type="date" value="{{toShortDate record.releaseYear}}" />
+  </fieldset>
+  <fieldset>
+    <label for="noOfSongs" class="col-2">
+      Number of Songs:
+    </label>
+    <input name="noOfSongs" id="noOfSongs" type="number" value="{{record.noOfSongs}}" />
+  </fieldset>
+  <button class="offset-3 btn btn-primary">
+    Save
+  </button>
+</form>

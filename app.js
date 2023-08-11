@@ -13,7 +13,12 @@ var loginRouter = require('./routes/login');
 
 const passport = require('passport');
 const session = require('express-session');
+const GitHubStrategy = require('passport-github2').Strategy; 
+const User = require('./models/user'); 
 
+
+const config = require('./config/globals.js');
+let connectionString = config.db;
 var app = express();
 
 // view engine setup
@@ -37,20 +42,55 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const User = require('./models/user');
+
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+passport.use(new GitHubStrategy({
+  clientID: config.github.clientId,
+  clientSecret: config.github.clientSecret,
+  callbackURL: config.github.callbackUrl
+}, (accessToken, refreshToken, profile, done) => {
+  
+  User.findOne({ oauthId: profile.id }, (err, user) => {
+    if (err) return done(err);
+    if (user) {
+      return done(null, user);
+    } else {
+      const newUser = new User({
+        oauthId: profile.id,
+        oauthProvider: 'github',
+        created: new Date()
+      });
+      newUser.save((err) => {
+        if (err) return done(err);
+        return done(null, newUser);
+      });
+    }
+  });
+}));
 
 app.use('/', indexRouter);
 app.use('/records', recordsRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 
+app.get('/auth/github',
+  passport.authenticate('github', { scope: ['user:email'] })
+);
 
-const config = require('./config/globals.js');
-let connectionString = config.db;
+app.get('/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful GitHub authentication, redirect as needed
+    res.redirect('/records'); // Redirect to records page for example
+  }
+);
+
+
+
 
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((message) => {

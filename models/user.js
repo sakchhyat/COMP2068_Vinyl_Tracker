@@ -3,7 +3,10 @@ const localMongoosePassport = require('passport-local-mongoose');
 
 const userSchemaDefn = {
     username: String,
-    password: String
+    password: String,
+    oauthId: String,        
+    oauthProvider: String,  
+    created: Date
 }
 
 
