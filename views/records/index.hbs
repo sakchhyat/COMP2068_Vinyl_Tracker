@@ -3,16 +3,16 @@
 <br>
 
 {{#if user}}
-<a href="/records/add">Add a new Vinyl Record to your collection</a>
+  <!-- Add a new record button visible only for signed-in users -->
+  <a href="/records/add" class="button">Add a new Vinyl Record to your collection</a>
 {{/if}}
 <br>
 <br>
 
-
-
+<!-- Table to display records -->
 <table class="table table-dark table-striped table-hover">
   <thead>
-<tr>
+    <tr>
       <th>
         <img src="/images/albumTitle.png" alt="Album Title" class="header-icon">
         Album Title
@@ -36,10 +36,10 @@
       <th>
         <img src="/images/action.png" alt="Action" class="header-icon">
       </th>
-
     </tr>
   </thead>
   <tbody>
+    <!-- Loop through each record in the dataset -->
     {{#each dataset}}
       <tr>
         <td>{{this.albumTitle}}</td>
@@ -47,13 +47,13 @@
         <td>{{this.releaseYear}}</td>
         <td>{{this.noOfSongs}}</td>
         <td>
-          
-            {{#generateRatingStars this.rating}}
-            {{/generateRatingStars}}
-
+          <!-- Display rating stars using the custom helper function -->
+          {{#generateRatingStars this.rating}}
+          {{/generateRatingStars}}
         </td>
         <td>
           {{#if ../user}}
+            <!-- Edit and Delete buttons for signed-in users -->
             <a href="/records/edit/{{this._id}}" class="btn btn-primary">
               <img src="/images/edit.png" alt="Edit" style="width: 20px; height: 20px;">
             </a>
@@ -61,14 +61,11 @@
               <img src="/images/close.png" alt="Delete" style="width: 20px; height: 20px;">
             </a>
           {{else}}
+            <!-- Sign in button for non-signed-in users -->
             <a href="/login" class="btn btn-secondary">Sign in first</a>
           {{/if}}
         </td>
       </tr>
     {{/each}}
-
-
   </tbody>
 </table>
-
-

@@ -2,28 +2,36 @@
 <p>Welcome to {{title}}</p>
 
 <form method="post" class="record-form">
+  <!-- Input field for Album Title -->
   <fieldset>
     <label for="albumTitle">Album Title:</label>
     <input type="text" id="albumTitle" name="albumTitle" class="form-control" required />
   </fieldset>
+
+  <!-- Input field for Album Artist -->
   <fieldset>
     <label for="albumArtist">Album Artist:</label>
     <input type="text" id="albumArtist" name="albumArtist" class="form-control" required />
   </fieldset>
+
+  <!-- Input field for Release Year -->
   <fieldset>
     <label for="releaseYear">Release Year:</label>
     <input type="number" min="1900" max="2099" step="1" value="2016" id="releaseYear" name="releaseYear" class="form-control" required />
   </fieldset>
+
+  <!-- Input field for Number of Songs -->
   <fieldset>
     <label for="noOfSongs">Number of Songs:</label>
     <input type="number" id="noOfSongs" name="noOfSongs" class="form-control" />
   </fieldset>
+
+  <!-- Input field for Rating -->
   <fieldset>
     <label for="rating">Rating:</label>
     <input type="number" id="rating" name="rating" class="form-control" min="1" max="5"/>
   </fieldset>
+
+  <!-- Button to submit the form -->
   <button type="submit" class="btn btn-primary">Add Record</button>
 </form>
-
-
-
