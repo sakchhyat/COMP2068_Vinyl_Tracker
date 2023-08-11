@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
+const hbs = require('hbs')
+const rating = require('./public/javascripts/rating');
 
 
 var indexRouter = require('./routes/index');
@@ -31,6 +33,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+hbs.registerHelper('generateRatingStars', function(rating) {
+  let stars = '';
+  for (let i = 1; i <= rating; i++) {
+    stars += '<img src="/images/ratingStar.png" alt="Rating Star" class="header-icon">';
+  }
+  return new hbs.SafeString(stars);
+});
 
 app.use(session({
   secret: 'vinyltrackergrailzrock',

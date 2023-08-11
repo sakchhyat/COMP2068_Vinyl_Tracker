@@ -16,6 +16,9 @@ const recordsCollectionSchemaDefn = {
     noOfSongs: {
         type: Number
     },
+    rating: {
+        type: Number
+    }
 }
 
 

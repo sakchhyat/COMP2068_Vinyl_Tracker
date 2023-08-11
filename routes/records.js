@@ -33,13 +33,14 @@ router.get('/add', isLoggedIn, function(req, res, next) {
 
 router.post('/add', isLoggedIn ,(req, res, next) => {
 
-  const { albumTitle, albumArtist, releaseYear, noOfSongs } = req.body;
+  const { albumTitle, albumArtist, releaseYear, noOfSongs, rating } = req.body;
 
   Record.create({
     albumTitle: albumTitle,
     albumArtist: albumArtist,
     releaseYear: releaseYear,
-    noOfSongs: noOfSongs
+    noOfSongs: noOfSongs,
+    rating: rating
   }, (err, newRecord) => {
     if (err) {
         console.log(err);
@@ -80,6 +81,7 @@ router.post('/edit/:_id', isLoggedIn, (req,res,next) => {
       albumArtist: req.body.albumArtist,
       releaseYear: req.body.releaseYear,
       noOfSongs: req.body.noOfSongs,
+      rating: req.body.rating,
       status: req.body.status
   }, (err, updatedRecord) => {
       if (err) {

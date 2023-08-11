@@ -1,32 +1,26 @@
 <h1>
   Edit Record
 </h1>
-<form method="POST">
-  <fieldset>
-    <label for="albumTitle" class="col-2">
-      Album Title:
-    </label>
-    <input name="albumTitle" id="albumTitle" required value="{{record.albumTitle}}" />
+<form method="POST" class="record-form">
+  <fieldset class="form-group">
+    <label for="albumTitle" class="col-2">Album Title:</label>
+    <input name="albumTitle" id="albumTitle" required class="form-control" value="{{record.albumTitle}}" />
   </fieldset>
-  <fieldset>
-    <label for="albumArtist" class="col-2">
-      Album Artist:
-    </label>
-    <input name="albumArtist" id="albumArtist" required value="{{record.albumArtist}}" />
+  <fieldset class="form-group">
+    <label for="albumArtist" class="col-2">Album Artist:</label>
+    <input name="albumArtist" id="albumArtist" required class="form-control" value="{{record.albumArtist}}" />
   </fieldset>
-  <fieldset>
-    <label for="releaseYear" class="col-2">
-      Release Year:
-    </label>
-    <input name="releaseYear" id="releaseYear" required type="Number" value="{{record.releaseYear}}" />
+  <fieldset class="form-group">
+    <label for="releaseYear" class="col-2">Release Year:</label>
+    <input name="releaseYear" id="releaseYear" required type="Number" class="form-control" value="{{record.releaseYear}}" />
   </fieldset>
-  <fieldset>
-    <label for="noOfSongs" class="col-2">
-      Number of Songs:
-    </label>
-    <input name="noOfSongs" id="noOfSongs" type="number" value="{{record.noOfSongs}}" />
+  <fieldset class="form-group">
+    <label for="noOfSongs" class="col-2">Number of Songs:</label>
+    <input name="noOfSongs" id="noOfSongs" type="number" class="form-control" value="{{record.noOfSongs}}" />
   </fieldset>
-  <button class="offset-3 btn btn-primary">
-    Save
-  </button>
+  <fieldset class="form-group">
+    <label for="rating" class="col-2">Rating <br>(out of 5 stars):</label>
+    <input name="rating" id="rating" type="number" class="form-control" value="{{record.rating}}" min="1" max="5" />
+  </fieldset>
+  <button class="offset-3 btn btn-primary">Save</button>
 </form>

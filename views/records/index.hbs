@@ -10,28 +10,65 @@
 
 
 
-<table class="table table-striped table-hover">
+<table class="table table-dark table-striped table-hover">
   <thead>
-    <th>Album Title</th>
-    <th>Album Artist</th>
-    <th>Release Year</th>
-    <th>No. of Songs</th>
-    
+<tr>
+      <th>
+        <img src="/images/albumTitle.png" alt="Album Title" class="header-icon">
+        Album Title
+      </th>
+      <th>
+        <img src="/images/albumArtist.png" alt="Album Artist" class="header-icon">
+        Album Artist
+      </th>
+      <th>
+        <img src="/images/releaseYear.png" alt="Release Year" class="header-icon">
+        Release Year
+      </th>
+      <th>
+        <img src="/images/noOfSongs.png" alt="No. of Songs" class="header-icon">
+        No. of Songs
+      </th>
+      <th>
+        <img src="/images/rating.png" alt="Rating" class="header-icon">
+        Rating
+      </th>
+      <th>
+        <img src="/images/action.png" alt="Action" class="header-icon">
+      </th>
+
+    </tr>
   </thead>
   <tbody>
-  {{#each dataset}}
-    <tr>
-      <td>{{this.albumTitle}}</td>
-      <td>{{this.albumArtist}}</td>
-      <td>{{this.releaseYear}}</td>
-      <td>{{this.noOfSongs}}</td>
-      {{#if ../user}}
-        <td><a href="/records/edit/{{this._id}}" 
-          class="btn btn-primary">Edit</a>
-            <a href="/records/delete/{{this._id}}" 
-          class="btn btn-danger">Delete</a></td>
-    {{/if}}
-    </tr>
-  {{/each}}
+    {{#each dataset}}
+      <tr>
+        <td>{{this.albumTitle}}</td>
+        <td>{{this.albumArtist}}</td>
+        <td>{{this.releaseYear}}</td>
+        <td>{{this.noOfSongs}}</td>
+        <td>
+          
+            {{#generateRatingStars this.rating}}
+            {{/generateRatingStars}}
+
+        </td>
+        <td>
+          {{#if ../user}}
+            <a href="/records/edit/{{this._id}}" class="btn btn-primary">
+              <img src="/images/edit.png" alt="Edit" style="width: 20px; height: 20px;">
+            </a>
+            <a href="/records/delete/{{this._id}}" class="btn btn-danger">
+              <img src="/images/close.png" alt="Delete" style="width: 20px; height: 20px;">
+            </a>
+          {{else}}
+            <a href="/login" class="btn btn-secondary">Sign in first</a>
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+
+
   </tbody>
 </table>
+
+
